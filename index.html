@@ -35,11 +35,76 @@
         </nav>
     </div>
     <div class="container" style="height:90%;min-height: 90%">
-        <iframe src='https://webchat.botframework.com/embed/FlyMeBotMulti?s=LF8OK_JO5Yo.fVp5u9G6N2et9zT4a-GqPieliJbpcLOegGNHFEhDLyU'  style='min-width: 400px; width: 100%; min-height: 800px;'></iframe>
+        <p class="mstrcontainer" style="z-index: 666;"></p>
+        <iframe id="chat" src='https://webchat.botframework.com/embed/FlyMeBotMulti?s=LF8OK_JO5Yo.fVp5u9G6N2et9zT4a-GqPieliJbpcLOegGNHFEhDLyU'  style='min-width: 400px; width: 100%; min-height: 800px;'></iframe>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-animation.js"></script>
+    <style>
+        .mstrcontainer {
+				position: absolute;
+				top: 50%;
+		    		left: 50%;
+		    		transform: translateX(-50%) translateY(-50%);
+		    		font-size: 30px;
+		    		color: #333;
+			}
+    </style>
+    <script>
+        document.onkeydown = animateKeys;
+
+        window.addEventListener("keydown", function(event) {
+            animateKeys(event);
+        });
+        $(document.getElementById('chat').contentWindow.document).keydown(function(event){animateKeys(event)});
+        var colors = [
+            '#FF0000', 
+            '#00FFFF', 
+            '#0000FF', 
+            '#0000A0', 
+            '#ADD8E6', 
+            '#800080', 
+            '#FFFF00',
+            '#00FF00', 
+            '#FF00FF', 
+            '#C0C0C0', 
+            '#808080', 
+            '#000000', 
+            '#FFA500', 
+            '#A52A2A', 
+            '#800000', 
+            '#008000', 
+            '#808000'
+            ];
+
+        function animateKeys (event) {
+            
+            var keyCode = event.keyCode;
+            var c = String.fromCharCode(keyCode);
+            // console.log(c)
+            var key = document.createElement("div");
+            document.body.appendChild(key);
+
+            key.style.position = "absolute";
+
+            var randX = Math.round(Math.random() * (window.innerWidth/1.2));
+            var randY = Math.round(Math.random() * window.innerHeight/1.2);
+
+            key.style.left = randX + 'px';
+            key.style.top = randY + 'px';
+            key.innerText = c;
+
+            var color = colors[Math.floor(Math.random() * colors.length)];
+            key.style.color = color;
+
+            key.style.transition = "all 0.5s linear 0s";
+            key.style.left = key.offsetLeft - 30 + 'px';
+            key.style.top = key.offsetTop - 30 + 'px';
+            key.style.fontSize = "100px";
+            key.style.opacity = 0; 
+        }
+    </script>
 </body>
 
 </html>
